@@ -1,0 +1,86 @@
+#!/usr/bin/env bash
+
+__ScriptVersion="0.1"
+
+sha=0
+previous_sha=0
+timeout=1
+
+#===  FUNCTION  ================================================================
+#         NAME:  execute_command 
+#  DESCRIPTION:  Execute the command giveng in the command line argument.      
+#===============================================================================
+function execute_command() {
+	clear
+	echo -en "executing \`$cmd.\`\n"
+	echo -en "----------------------------------------------------------------"
+    echo -en "\n\n"
+	$cmd
+    echo -en "\n\n"
+	echo -en "----------------------------------------------------------------"
+	echo -en "\ndone. Waiting for new changes."
+}
+
+#===  FUNCTION  ================================================================
+#         NAME:  update_sha 
+#  DESCRIPTION:  Updates the global sha varialbe by calculating the hash of the 
+#                path using shasum.
+#===============================================================================
+function update_sha() {
+	sha=`find $path -type f | sort -z | xargs shasum 2> /dev/null | shasum`
+}
+
+#===  FUNCTION  ================================================================
+#         NAME:  usage
+#  DESCRIPTION:  Display usage information.
+#===============================================================================
+function usage ()
+{
+				cat <<- EOT
+
+  Usage :  $0 [options] /path/to/oberve command_to_execute_on_change
+
+  Options:
+  -t|timeout	Set the time to sleep between looking for changes
+  -h|help       Display this message
+  -v|version    Display script version
+
+				EOT
+}    
+
+#-----------------------------------------------------------------------
+#  Handle command line arguments
+#-----------------------------------------------------------------------
+while getopts "h:v:t:" opt
+do
+  case $opt in
+
+		h|help     )  usage; exit 0   ;;
+
+		v|version  )  echo "$0 -- Version $__ScriptVersion"; exit 0   ;;
+
+		t|timeout  )  timeout=$OPTARG;                                ;;
+
+		\? )  echo -e "\n  Option does not exist : $OPTARG\n"
+				  usage; exit 1   ;;
+
+  esac    # --- end of case ---
+done
+shift $(($OPTIND-1))
+
+#-----------------------------------------------------------------------
+#  Main script                   
+#-----------------------------------------------------------------------
+path=$1
+shift
+cmd=$*
+update_sha
+previous_sha=$sha
+while true; do
+	if [[ $sha != $previous_sha ]]; then
+		execute_command
+		previous_sha=$sha		
+	fi
+	update_sha
+	sleep $timeout
+done
