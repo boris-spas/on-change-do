@@ -14,9 +14,9 @@ function execute_command() {
 	clear
 	echo -en "executing \`$cmd.\`\n"
 	echo -en "----------------------------------------------------------------"
-    echo -en "\n\n"
+	echo -en "\n\n"
 	$cmd
-    echo -en "\n\n"
+	echo -en "\n\n"
 	echo -en "----------------------------------------------------------------"
 	echo -en "\ndone. Waiting for new changes."
 }
@@ -27,7 +27,7 @@ function execute_command() {
 #                path using shasum.
 #===============================================================================
 function update_sha() {
-	sha=`find $path -type f | sort -z | xargs shasum 2> /dev/null | shasum`
+	sha=$(find "$path" -type f | sort -z | xargs shasum 2> /dev/null | shasum)
 }
 
 #===  FUNCTION  ================================================================
@@ -77,10 +77,10 @@ cmd=$*
 update_sha
 previous_sha=$sha
 while true; do
-	if [[ $sha != $previous_sha ]]; then
+	if [[ "$sha" != "$previous_sha" ]]; then
 		execute_command
 		previous_sha=$sha		
 	fi
 	update_sha
-	sleep $timeout
+	sleep "$timeout"
 done
