@@ -18,7 +18,7 @@ function execute_command() {
 	$cmd
 	echo -en "\n\n"
 	echo -en "----------------------------------------------------------------"
-	echo -en "\ndone. Waiting for new changes."
+	echo -en "\ndone. Waiting for new changes on $path."
 }
 
 #===  FUNCTION  ================================================================
@@ -76,6 +76,7 @@ shift
 cmd=$*
 update_sha
 previous_sha=$sha
+echo -en "Observing $path and will execute \`$cmd\`"
 while true; do
 	if [[ "$sha" != "$previous_sha" ]]; then
 		execute_command
