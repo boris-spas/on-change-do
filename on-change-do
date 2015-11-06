@@ -6,6 +6,7 @@ sha=0
 previous_sha=0
 timeout=1
 lazy=false
+all=false
 #===  FUNCTION  ================================================================
 #         NAME:  execute_command 
 #  DESCRIPTION:  Execute the command giveng in the command line argument.      
@@ -27,7 +28,13 @@ function execute_command() {
 #                path using shasum.
 #===============================================================================
 function update_sha() {
-	sha=$(find "$path" -type f | sort -z | xargs shasum 2> /dev/null | shasum)
+	if [[ $all == true ]]; then
+		sha=$(find "$path" -type f \
+			| sort -z | xargs shasum 2> /dev/null | shasum)
+	else
+		sha=$(find "$path" -type f -not -path '*/\.*' \
+			| sort -z | xargs shasum 2> /dev/null | shasum)
+	fi
 }
 
 #===  FUNCTION  ================================================================
@@ -41,8 +48,9 @@ function usage ()
   Usage :  $0 [options] /path/to/oberve command_to_execute_on_change
 
   Options:
-  -t|timeout	Set the time to sleep between looking for changes.
-  -l|lazy 		Don't react to changes that happen during execution of the
+  -a|all        Include hidden files in obervation.
+  -t|timeout    Set the time to sleep between looking for changes.
+  -l|lazy       Don't react to changes that happen during execution of the
   				command. Usefull if	the command changes the oberved to path.  
   -h|help       Display this message.
   -v|version    Display script version.
@@ -50,31 +58,33 @@ function usage ()
 				EOT
 }    
 
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 #  Handle command line arguments
-#-----------------------------------------------------------------------
-while getopts "t:lhv" opt
+#-------------------------------------------------------------------------------
+while getopts "at:lhv" opt
 do
   case $opt in
 
+		a|all      )  all=true                                        ;;
+
 		t|timeout  )  timeout=$OPTARG;                                ;;
 		
-		l|lazy     )  lazy=true       ;;
+		l|lazy     )  lazy=true                                       ;;
 		
-		h|help     )  usage; exit 0   ;;
+		h|help     )  usage; exit 0                                   ;;
 
 		v|version  )  echo "$0 -- Version $__ScriptVersion"; exit 0   ;;
 
 		\? )  echo -e "\n  Option does not exist : $OPTARG\n"
-				  usage; exit 1   ;;
+				  usage; exit 1                                       ;;
 
   esac    # --- end of case ---
 done
 shift $(($OPTIND-1))
 
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 #  Main script                   
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 path=$1
 shift
 cmd=$*
