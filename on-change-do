@@ -5,7 +5,7 @@ __ScriptVersion="0.1"
 sha=0
 previous_sha=0
 timeout=1
-
+lazy=false
 #===  FUNCTION  ================================================================
 #         NAME:  execute_command 
 #  DESCRIPTION:  Execute the command giveng in the command line argument.      
@@ -41,9 +41,11 @@ function usage ()
   Usage :  $0 [options] /path/to/oberve command_to_execute_on_change
 
   Options:
-  -t|timeout	Set the time to sleep between looking for changes
-  -h|help       Display this message
-  -v|version    Display script version
+  -t|timeout	Set the time to sleep between looking for changes.
+  -l|lazy 		Don't react to changes that happen during execution of the
+  				command. Usefull if	the command changes the oberved to path.  
+  -h|help       Display this message.
+  -v|version    Display script version.
 
 				EOT
 }    
@@ -51,10 +53,11 @@ function usage ()
 #-----------------------------------------------------------------------
 #  Handle command line arguments
 #-----------------------------------------------------------------------
-while getopts "h:v:t:" opt
+while getopts "hvtl" opt
 do
   case $opt in
 
+		l|lazy     )  lazy=true       ;;
 		h|help     )  usage; exit 0   ;;
 
 		v|version  )  echo "$0 -- Version $__ScriptVersion"; exit 0   ;;
@@ -81,6 +84,11 @@ while true; do
 	if [[ "$sha" != "$previous_sha" ]]; then
 		execute_command
 		previous_sha=$sha		
+		if [[ $lazy == true ]]; then
+			update_sha
+			previous_sha=$sha
+			continue
+		fi
 	fi
 	update_sha
 	sleep "$timeout"
