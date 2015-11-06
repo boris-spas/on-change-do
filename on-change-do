@@ -53,7 +53,7 @@ function usage ()
 #-----------------------------------------------------------------------
 #  Handle command line arguments
 #-----------------------------------------------------------------------
-while getopts "hvtl" opt
+while getopts "hvt:l" opt
 do
   case $opt in
 
