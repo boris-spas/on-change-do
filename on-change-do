@@ -53,16 +53,17 @@ function usage ()
 #-----------------------------------------------------------------------
 #  Handle command line arguments
 #-----------------------------------------------------------------------
-while getopts "hvt:l" opt
+while getopts "t:lhv" opt
 do
   case $opt in
 
+		t|timeout  )  timeout=$OPTARG;                                ;;
+		
 		l|lazy     )  lazy=true       ;;
+		
 		h|help     )  usage; exit 0   ;;
 
 		v|version  )  echo "$0 -- Version $__ScriptVersion"; exit 0   ;;
-
-		t|timeout  )  timeout=$OPTARG;                                ;;
 
 		\? )  echo -e "\n  Option does not exist : $OPTARG\n"
 				  usage; exit 1   ;;
