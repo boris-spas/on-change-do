@@ -15,7 +15,7 @@ function execute_command() {
 	echo -en "executing \`$cmd.\`\n"
 	echo -en "----------------------------------------------------------------"
 	echo -en "\n\n"
-	$cmd
+	eval $cmd
 	echo -en "\n\n"
 	echo -en "----------------------------------------------------------------"
 	echo -en "\ndone. Waiting for new changes on $path."
