@@ -51,7 +51,7 @@ function usage ()
   -a|all        Include hidden files in obervation.
   -t|timeout    Set the time to sleep between looking for changes.
   -l|lazy       Don't react to changes that happen during execution of the
-  				command. Usefull if	the command changes the oberved to path.  
+                command. Usefull if	the command changes the oberved to path.  
   -h|help       Display this message.
   -v|version    Display script version.
 
