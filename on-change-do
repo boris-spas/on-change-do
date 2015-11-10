@@ -94,7 +94,7 @@ echo -en "Observing $path and will execute \`$cmd\`"
 while true; do
 	if [[ "$sha" != "$previous_sha" ]]; then
 		execute_command
-		previous_sha=$sha		
+		previous_sha=$sha
 		if [[ $lazy == true ]]; then
 			update_sha
 			previous_sha=$sha
