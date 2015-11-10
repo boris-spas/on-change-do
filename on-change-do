@@ -26,7 +26,7 @@ function execute_command() {
 #===  FUNCTION  ================================================================
 #         NAME:  update_sha
 #  DESCRIPTION:  Updates the global sha varialbe by calculating the hash of the
-#                path using shasum.
+#                path using the specified sha_cmd.
 #===============================================================================
 function update_sha() {
 	if [[ $all == true ]]; then
