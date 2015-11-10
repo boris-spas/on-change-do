@@ -53,7 +53,7 @@ function usage ()
   -t|timeout    Set the time to sleep between looking for changes.
   -l|lazy       Don't react to changes that happen during execution of the
                 command. Usefull if	the command changes the oberved to path. 
-  -s|sha        The command used to calculate hash. The default is shasum.
+  -s|sha        Set the command used to calculate hash. The default is shasum.
   -h|help       Display this message.
   -v|version    Display script version.
 
