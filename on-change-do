@@ -42,8 +42,7 @@ function update_sha() {
 #         NAME:  usage
 #  DESCRIPTION:  Display usage information.
 #===============================================================================
-function usage ()
-{
+function usage () {
 				cat <<- EOT
 
   Usage :  $0 [options] /path/to/oberve command_to_execute_on_change
