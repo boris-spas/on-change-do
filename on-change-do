@@ -57,6 +57,8 @@ function usage ()
   -h|help       Display this message.
   -v|version    Display script version.
 
+  Example : $0 -l -s shasum5.18 -t 0.5 /tmp/ 'echo change detected at `date`'
+
 				EOT
 }   
 
