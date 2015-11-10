@@ -8,8 +8,8 @@ timeout=1
 lazy=false
 all=false
 #===  FUNCTION  ================================================================
-#         NAME:  execute_command 
-#  DESCRIPTION:  Execute the command giveng in the command line argument.      
+#         NAME:  execute_command
+#  DESCRIPTION:  Execute the command giveng in the command line argument.     
 #===============================================================================
 function execute_command() {
 	clear
@@ -23,8 +23,8 @@ function execute_command() {
 }
 
 #===  FUNCTION  ================================================================
-#         NAME:  update_sha 
-#  DESCRIPTION:  Updates the global sha varialbe by calculating the hash of the 
+#         NAME:  update_sha
+#  DESCRIPTION:  Updates the global sha varialbe by calculating the hash of the
 #                path using shasum.
 #===============================================================================
 function update_sha() {
@@ -51,12 +51,12 @@ function usage ()
   -a|all        Include hidden files in obervation.
   -t|timeout    Set the time to sleep between looking for changes.
   -l|lazy       Don't react to changes that happen during execution of the
-                command. Usefull if	the command changes the oberved to path.  
+                command. Usefull if	the command changes the oberved to path. 
   -h|help       Display this message.
   -v|version    Display script version.
 
 				EOT
-}    
+}   
 
 #-------------------------------------------------------------------------------
 #  Handle command line arguments
@@ -83,7 +83,7 @@ done
 shift $(($OPTIND-1))
 
 #-------------------------------------------------------------------------------
-#  Main script                   
+#  Main script                  
 #-------------------------------------------------------------------------------
 path=$1
 shift
