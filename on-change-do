@@ -10,7 +10,7 @@ all=false
 sha_cmd=shasum
 #===  FUNCTION  ================================================================
 #         NAME:  execute_command
-#  DESCRIPTION:  Execute the command giveng in the command line argument.     
+#  DESCRIPTION:  Execute the command giveng in the command line argument.    
 #===============================================================================
 function execute_command() {
 	clear
@@ -52,7 +52,7 @@ function usage ()
   -a|all        Include hidden files in obervation.
   -t|timeout    Set the time to sleep between looking for changes.
   -l|lazy       Don't react to changes that happen during execution of the
-                command. Usefull if	the command changes the oberved to path. 
+                command. Usefull if	the command changes the oberved to path.
   -s|sha        Set the command used to calculate hash. The default is shasum.
   -h|help       Display this message.
   -v|version    Display script version.
@@ -60,7 +60,7 @@ function usage ()
   Example : $0 -l -s shasum5.18 -t 0.5 /tmp/ 'echo change detected at `date`'
 
 				EOT
-}   
+}  
 
 #-------------------------------------------------------------------------------
 #  Handle command line arguments
@@ -89,7 +89,7 @@ done
 shift $(($OPTIND-1))
 
 #-------------------------------------------------------------------------------
-#  Main script                  
+#  Main script                 
 #-------------------------------------------------------------------------------
 path=$1
 shift
