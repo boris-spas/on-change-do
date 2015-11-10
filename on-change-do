@@ -7,6 +7,7 @@ previous_sha=0
 timeout=1
 lazy=false
 all=false
+sha_cmd=shasum
 #===  FUNCTION  ================================================================
 #         NAME:  execute_command
 #  DESCRIPTION:  Execute the command giveng in the command line argument.     
@@ -30,10 +31,10 @@ function execute_command() {
 function update_sha() {
 	if [[ $all == true ]]; then
 		sha=$(find "$path" -type f \
-			| sort -z | xargs shasum 2> /dev/null | shasum)
+			| sort -z | xargs $sha_cmd 2> /dev/null | $sha_cmd)
 	else
 		sha=$(find "$path" -type f -not -path '*/\.*' \
-			| sort -z | xargs shasum 2> /dev/null | shasum)
+			| sort -z | xargs $sha_cmd 2> /dev/null | $sha_cmd)
 	fi
 }
 
@@ -52,6 +53,8 @@ function usage ()
   -t|timeout    Set the time to sleep between looking for changes.
   -l|lazy       Don't react to changes that happen during execution of the
                 command. Usefull if	the command changes the oberved to path. 
+  -s|sha        The command to be used to calculate file checksum. The default
+                is shasum.
   -h|help       Display this message.
   -v|version    Display script version.
 
@@ -61,7 +64,7 @@ function usage ()
 #-------------------------------------------------------------------------------
 #  Handle command line arguments
 #-------------------------------------------------------------------------------
-while getopts "at:lhv" opt
+while getopts "at:ls:hv" opt
 do
   case $opt in
 
@@ -71,6 +74,8 @@ do
 		
 		l|lazy     )  lazy=true                                       ;;
 		
+		s|sha      )  sha_cmd=$OPTARG;                                ;;
+
 		h|help     )  usage; exit 0                                   ;;
 
 		v|version  )  echo "$0 -- Version $__ScriptVersion"; exit 0   ;;
