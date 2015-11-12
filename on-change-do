@@ -20,7 +20,7 @@ function execute_command() {
 	eval $cmd
 	echo -en "\n\n"
 	echo -en "----------------------------------------------------------------"
-	echo -en "\ndone. Waiting for new changes on $path."
+	echo -en "\ndone. Waiting for new changes on $path"
 }
 
 #===  FUNCTION  ================================================================
