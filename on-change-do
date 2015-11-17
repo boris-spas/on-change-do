@@ -56,7 +56,7 @@ function usage () {
   -t|timeout    Set the time to sleep between looking for changes.
   -v|version    Display script version.
 
-  Example : $0 -l -s shasum5.18 -t 0.5 /tmp/ 'echo change detected at `date`'
+  Example : $0 -l -s shasum5.18 -t 0.5 /tmp/ 'echo change detected at \`date\`'
 
 				EOT
 }  
