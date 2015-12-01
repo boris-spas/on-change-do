@@ -45,7 +45,10 @@ function update_sha() {
 function usage () {
 				cat <<- EOT
 
-  Usage :  $0 [options] /path/to/oberve command_to_execute_on_change
+  Polls a file or directory content  and executes a given command if a change
+  has occurred. Uses a hash of the content for comparison. 
+
+  Usage :  $0 [options] /path/to/observe command_to_execute_on_change
 
   Options:
   -a|all        Include hidden files in obervation.
