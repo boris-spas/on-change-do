@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-__ScriptVersion="0.1"
+__ScriptVersion="0.2"
 
 sha=0
 previous_sha=0
