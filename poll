@@ -44,8 +44,13 @@ function update_sha() {
 #===============================================================================
 function usage () {
 				cat <<- EOT
-
-  Polls a file or directory content  and executes a given command if a change
+         ___   ____
+        /   / /   / /    /
+       /___/ /   / /    /
+      /     /   / /    /
+     /     /___/ /___ /___ 
+  
+  Polls a file or directory content and executes a given command if a change
   has occurred. Uses a hash of the content for comparison. 
 
   Usage :  $0 [options] /path/to/observe command_to_execute_on_change
