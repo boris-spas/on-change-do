@@ -8,9 +8,10 @@ timeout=1
 lazy=false
 all=false
 sha_cmd=shasum
+
 #===  FUNCTION  ================================================================
 #         NAME:  execute_command
-#  DESCRIPTION:  Execute the command giveng in the command line argument.    
+#  DESCRIPTION:  Execute the command giveng in the command line argument.
 #===============================================================================
 function execute_command() {
 	clear
@@ -48,10 +49,10 @@ function usage () {
         /   / /   / /    /
        /___/ /   / /    /
       /     /   / /    /
-     /     /___/ /___ /___ 
-  
+     /     /___/ /___ /___
+
   Polls a file or directory content and executes a given command if a change
-  has occurred. Uses a hash of the content for comparison. 
+  has occurred. Uses a hash of the content for comparison.
 
   Usage :  $0 [options] /path/to/observe command_to_execute_on_change
 
@@ -67,7 +68,7 @@ function usage () {
   Example : $0 -l -s shasum5.18 -t 0.5 /tmp/ 'echo change detected at \`date\`'
 
 				EOT
-}  
+}
 
 #-------------------------------------------------------------------------------
 #  Handle command line arguments
@@ -90,11 +91,11 @@ done
 shift $(($OPTIND-1))
 
 #-------------------------------------------------------------------------------
-#  Main script                 
+#  Main script
 #-------------------------------------------------------------------------------
 if [ $# -eq 0 ];
 then
-	usage	
+	usage
     exit 0
 fi
 path=$1
