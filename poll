@@ -18,7 +18,7 @@ function execute_command() {
 	echo -en "executing \`$cmd.\`\n"
 	echo -en "----------------------------------------------------------------"
 	echo -en "\n\n"
-	eval $cmd
+	eval "$cmd"
 	echo -en "\n\n"
 	echo -en "----------------------------------------------------------------"
 	echo -en "\ndone. Waiting for new changes on $path"
@@ -88,7 +88,7 @@ do
 
   esac    # --- end of case ---
 done
-shift $(($OPTIND-1))
+shift $((OPTIND-1))
 
 #-------------------------------------------------------------------------------
 #  Main script
