@@ -8,6 +8,7 @@ timeout=1
 lazy=false
 all=false
 sha_cmd=shasum
+execute_on_startup=false
 
 #===  FUNCTION  ================================================================
 #         NAME:  execute_command
@@ -15,10 +16,10 @@ sha_cmd=shasum
 #===============================================================================
 function execute_command() {
 	clear
-	echo -en "executing \`$cmd.\`\n"
+	echo -en "executing \`${cmd}.\`\n"
 	echo -en "----------------------------------------------------------------"
 	echo -en "\n\n"
-	eval "$cmd"
+	eval "${cmd}"
 	echo -en "\n\n"
 	echo -en "----------------------------------------------------------------"
 	echo -en "\ndone. Waiting for new changes on $path"
@@ -58,6 +59,7 @@ function usage () {
 
   Options:
   -a|all        Include hidden files in obervation.
+	-e|startup    Execute command on startup
   -h|help       Display this message.
   -l|lazy       Don't react to changes that happen during execution of the
                 command. Usefull if	the command changes the oberved to path.
@@ -73,10 +75,11 @@ function usage () {
 #-------------------------------------------------------------------------------
 #  Handle command line arguments
 #-------------------------------------------------------------------------------
-while getopts "at:ls:hv" opt
+while getopts "aet:ls:hv" opt
 do
   case $opt in
 		a|all      )  all=true                                        ;;
+		e|startup  )  execute_on_startup=true                         ;;
 		h|help     )  usage; exit 0                                   ;;
 		l|lazy     )  lazy=true                                       ;;
 		s|sha      )  sha_cmd=$OPTARG;                                ;;
@@ -104,6 +107,9 @@ cmd=$*
 update_sha
 previous_sha=$sha
 echo -en "Observing $path and will execute \`$cmd\`"
+if [[ $execute_on_startup == true ]]; then
+	execute_command
+fi
 while true; do
 	if [[ "$sha" != "$previous_sha" ]]; then
 		execute_command
